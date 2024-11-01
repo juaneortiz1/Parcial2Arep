@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class ProxyController {
 
-    private final String[] mathServers = {"http://172.31.39.53:8080", "http://172.31.33.60:8080"};
+    private final String[] mathServers = {"http://98.81.121.208:8080", "http://34.229.47.183:8080"};
     private int serverIndex = 0;
 
     @GetMapping("/search")

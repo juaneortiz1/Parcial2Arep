@@ -12,7 +12,7 @@
     <input type="text" id="binaryList" name="binaryList" placeholder="e.g., 1,2,3,4,5"><br>
     <label for="binaryValue">Value to Search:</label><br>
     <input type="text" id="binaryValue" name="binaryValue" placeholder="e.g., 3"><br><br>
-    <input type="button" value="Submit" onclick="search('binarySearch')">
+    <input type="button" value="Submit" onclick="search('binary')">
 </form>
 <div id="binaryResponse"></div>
 
@@ -22,25 +22,32 @@
     <input type="text" id="linearList" name="linearList" placeholder="e.g., a,b,c,d"><br>
     <label for="linearValue">Value to Search:</label><br>
     <input type="text" id="linearValue" name="linearValue" placeholder="e.g., b"><br><br>
-    <input type="button" value="Submit" onclick="search('linearSearch')">
+    <input type="button" value="Submit" onclick="search('linear')">
 </form>
 <div id="linearResponse"></div>
 
 <script>
     function search(type) {
         // Get the input values based on the search type
-        let list = document.getElementById(type + "List").value;
-        let value = document.getElementById(type + "Value").value;
+        let listInput = document.getElementById(type + "List");
+        let valueInput = document.getElementById(type + "Value");
 
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            // Display the response based on search type
-            document.getElementById(type + "Response").innerHTML = this.responseText;
+        if (listInput && valueInput) {
+            let list = listInput.value;
+            let value = valueInput.value;
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                // Display the response based on search type
+                document.getElementById(type + "Response").innerHTML = this.responseText;
+            }
+
+            // Send request to proxy endpoint
+            xhttp.open("GET", "/search?type=" + type + "Search&list=" + encodeURIComponent(list) + "&value=" + encodeURIComponent(value));
+            xhttp.send();
+        } else {
+            console.error("Elements not found for search type:", type);
         }
-
-        // Send request to proxy endpoint
-        xhttp.open("GET", "/search?type=" + type + "&list=" + encodeURIComponent(list) + "&value=" + encodeURIComponent(value));
-        xhttp.send();
     }
 </script>
 </body>
