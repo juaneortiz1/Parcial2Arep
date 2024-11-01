@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Form Example</title>
+    <title>Search Application</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <h1>Binary Search</h1>
-<form action="/binarySearch">
-    <label for="name">Sorted Double List:</label><br>
-    <input type="text" id="name" name="name" value="John"><br><br>
-    <input type="button" value="Submit" onclick="loadGetMsg()">
+<form>
+    <label for="binaryList">Sorted List (comma-separated):</label><br>
+    <input type="text" id="binaryList" name="binaryList" placeholder="e.g., 1,2,3,4,5"><br>
+    <label for="binaryValue">Value to Search:</label><br>
+    <input type="text" id="binaryValue" name="binaryValue" placeholder="e.g., 3"><br><br>
+    <input type="button" value="Submit" onclick="search('binarySearch')">
 </form>
-<div id="getrespmsg"></div>
-
-<script>
-    function loadGetMsg() {
-        let nameVar = document.getElementById("name").value;
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            document.getElementById("getrespmsg").innerHTML =
-            this.responseText;
-        }
-        xhttp.open("GET", "/greeting?name="+nameVar);
-        xhttp.send();
-    }
-</script>
+<div id="binaryResponse"></div>
 
 <h1>Linear Search</h1>
-<form action="/linearSearch">
-    <label for="postname">Sorted Double List:</label><br>
-    <input type="text" id="postname" name="name" value="John"><br><br>
-    <input type="button" value="Submit" onclick="loadGetMsg()">
+<form>
+    <label for="linearList">List (comma-separated):</label><br>
+    <input type="text" id="linearList" name="linearList" placeholder="e.g., a,b,c,d"><br>
+    <label for="linearValue">Value to Search:</label><br>
+    <input type="text" id="linearValue" name="linearValue" placeholder="e.g., b"><br><br>
+    <input type="button" value="Submit" onclick="search('linearSearch')">
 </form>
-
-<div id="postrespmsg"></div>
+<div id="linearResponse"></div>
 
 <script>
-    function loadGetMsg() {
-        let nameVar = document.getElementById("name").value;
+    function search(type) {
+        // Get the input values based on the search type
+        let list = document.getElementById(type + "List").value;
+        let value = document.getElementById(type + "Value").value;
+
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
-            document.getElementById("getrespmsg").innerHTML =
-            this.responseText;
+            // Display the response based on search type
+            document.getElementById(type + "Response").innerHTML = this.responseText;
         }
-        xhttp.open("GET", "/greeting?name="+nameVar);
+
+        // Send request to proxy endpoint
+        xhttp.open("GET", "/search?type=" + type + "&list=" + encodeURIComponent(list) + "&value=" + encodeURIComponent(value));
         xhttp.send();
     }
 </script>
