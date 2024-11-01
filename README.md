@@ -44,6 +44,14 @@ El despliegue del sistema se realiza en tres instancias en AWS:
   ![Math Server 1](src/main/resources/images/img2.png)
   ![Math Server 2](src/main/resources/images/img_2.png)
 
+### Video demostración
+
+
+
+https://github.com/user-attachments/assets/95f5cef2-17fd-4eb9-b941-3be3b8f53d2a
+
+
+
 ### Consideraciones Finales
 
 Esta implementación demuestra cómo distribuir la carga de solicitudes entre múltiples servidores de procesamiento, asegurando un sistema escalable y eficiente en el manejo de operaciones computacionales. El uso del balanceo round-robin en el Proxy Server garantiza una gestión equilibrada de las solicitudes, mientras que las dos instancias Math Server proporcionan redundancia y disponibilidad para el servicio de búsqueda.
